@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Add Expense{% endblock %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <div class="page-header">
+        <div>
+            <h1>Add Expense</h1>
+            <p>Record something you spent money on.</p>
+        </div>
+    </div>
+
+    <div class="card">
+
+        <form method="POST">
+
+            <label for="amount">Amount *</label>
+
+            <div class="input-prefix">
+                <span>$</span>
+                <input
+                    id="amount"
+                    name="amount"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    placeholder="0.00"
+                    required
+                >
+            </div>
+
+
+            <label for="category_id">Category *</label>
+
+            <select
+                id="category_id"
+                name="category_id"
+                required
+            >
+                <option value="">Select a category</option>
+
+                {% for category in categories %}
+                    <option value="{{ category.id }}">
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+
+            </select>
+
+
+            <label for="description">Description</label>
+
+            <input
+                id="description"
+                name="description"
+                type="text"
+                placeholder="What did you buy?"
+            >
+
+
+            <label for="expense_date">Date *</label>
+
+            <input
+                id="expense_date"
+                name="expense_date"
+                type="date"
+                value="{{ today }}"
+                required
+            >
+
+
+            <button type="submit" class="button full">
+                Save Expense
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

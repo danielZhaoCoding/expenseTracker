@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Dashboard</h1>
+        <p>Your spending at a glance.</p>
+    </div>
+
+    <a href="{{ url_for('add_expense') }}" class="button">
+        + Add Expense
+    </a>
+</div>
+
+<div class="stats">
+
+    <div class="stat-card">
+        <span>Total Spending</span>
+        <strong>${{ "%.2f"|format(total) }}</strong>
+    </div>
+
+    <div class="stat-card">
+        <span>Total Expenses</span>
+        <strong>{{ count }}</strong>
+    </div>
+
+    <div class="stat-card">
+        <span>Categories</span>
+        <strong>{{ by_category|length }}</strong>
+    </div>
+
+</div>
+
+<div class="dashboard-grid">
+
+    <section class="card">
+        <div class="card-header">
+            <h2>Recent Expenses</h2>
+            <a href="{{ url_for('expenses') }}">View all</a>
+        </div>
+
+        {% if recent %}
+
+            {% for expense in recent %}
+            <div class="expense-row">
+
+                <div>
+                    <strong>{{ expense.description or "Expense" }}</strong>
+                    <small>
+                        {{ expense.category }} · {{ expense.expense_date }}
+                    </small>
+                </div>
+
+                <strong>
+                    ${{ "%.2f"|format(expense.amount) }}
+                </strong>
+
+            </div>
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+                No expenses yet.
+            </div>
+
+        {% endif %}
+    </section>
+
+    <section class="card">
+        <div class="card-header">
+            <h2>By Category</h2>
+        </div>
+
+        {% for item in by_category %}
+
+            <div class="category-row">
+
+                <span>{{ item.category }}</span>
+
+                <strong>
+                    ${{ "%.2f"|format(item.total) }}
+                </strong>
+
+            </div>
+
+        {% endfor %}
+    </section>
+
+</div>
+
+{% endblock %}

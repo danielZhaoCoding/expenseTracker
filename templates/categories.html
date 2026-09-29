@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Categories</h1>
+        <p>Organize your spending.</p>
+    </div>
+</div>
+
+<div class="two-column">
+
+    <section class="card">
+
+        <h2>Add Category</h2>
+
+        <form method="POST">
+
+            <label for="name">Category name</label>
+
+            <input
+                id="name"
+                name="name"
+                type="text"
+                placeholder="e.g. Travel"
+                required
+            >
+
+            <button class="button full" type="submit">
+                Add Category
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <section class="card">
+
+        <h2>Your Categories</h2>
+
+        {% for category in categories %}
+
+            <div class="category-row">
+                <span>{{ category.name }}</span>
+            </div>
+
+        {% endfor %}
+
+    </section>
+
+</div>
+
+{% endblock %}
